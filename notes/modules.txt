@@ -1,0 +1,33 @@
+Suppose we have two classes in sperate files how to use them in another files
+
+by default the classes are private so we need to export them for letting them another class
+to use it
+
+person.js --> file
+export class Person {
+	walk() {
+		console.log('The person is walking');
+	}
+}
+
+
+
+teacher.js --> file
+
+import {Person} from './person';
+export class Teacher extends Person {
+	teach() {
+		console.log('The teacher is teaching to the students');
+	}
+}
+
+index.js 
+
+import {Teacher} from './teacher';
+
+const teacher = new Teacher();
+teacher.walk();
+teacher.teach();
+
+
+

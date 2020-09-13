@@ -1,0 +1,16 @@
+npm i -g create-react-app
+
+installing two extension
+
+1 simple react spinnets
+2 prettier
+
+Theme for vscode 
+
+Ayu Mirage
+
+
+------------------------------------- Create new app
+
+create-react-app  any_app_name
+
