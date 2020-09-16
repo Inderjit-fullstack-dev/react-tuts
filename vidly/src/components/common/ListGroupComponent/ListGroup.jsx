@@ -5,7 +5,6 @@ const ListGroup = (props) => {
     items,
     textProperty,
     valueProperty,
-    heading,
     onItemSelect,
     selectedItem,
   } = props;
