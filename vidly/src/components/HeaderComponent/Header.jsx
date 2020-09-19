@@ -35,6 +35,12 @@ class Header extends Component {
                   Rentals
                 </NavLink>
               </li>
+
+              <li className="nav-item">
+                <NavLink to="/login" className="nav-link">
+                  Login
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
