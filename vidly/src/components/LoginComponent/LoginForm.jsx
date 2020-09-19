@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Input from "../common/InputComponent/Input";
+import Joi from "joi-browser";
+
 class LoginForm extends Component {
   state = {
     account: {
@@ -9,27 +11,30 @@ class LoginForm extends Component {
     errors: {},
   };
 
-  validate = () => {
-    const errors = {};
-    const { username, password } = this.state.account;
-    if (username.trim() === "") errors.username = "Username is required";
-    if (password.trim() === "") errors.password = "Password is required";
+  schema = {
+    username: Joi.string().required().label("Username"),
+    password: Joi.string().required().label("Password"),
+  };
 
-    return Object.keys(errors).length === 0 ? null : errors;
+  validate = () => {
+    const { account } = this.state;
+    const { error } = Joi.validate(account, this.schema, { abortEarly: false });
+    if (!error) return null;
+
+    const errors = {};
+    for (let item of error.details) {
+      errors[item.path[0]] = item.message;
+    }
+
+    return errors;
   };
 
   validateProperty = ({ name, value }) => {
-    if (name === "username") {
-      if (value.trim() === "") {
-        return "Username is required";
-      }
-    }
-
-    if (name === "password") {
-      if (value.trim() === "") {
-        return "Password is required";
-      }
-    }
+    const obj = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema);
+    if (!error) return null;
+    return error.details[0].message;
   };
 
   handleSubmit = (event) => {
@@ -78,7 +83,9 @@ class LoginForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <button className="btn btn-primary">Login</button>
+          <button disabled={this.validate()} className="btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
     );
