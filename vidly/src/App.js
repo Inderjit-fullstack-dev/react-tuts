@@ -9,17 +9,20 @@ import Notfound from "./components/NotfoundComponent/Notfound";
 import MovieForm from "./components/MovieForm";
 import LoginForm from "./components/LoginComponent/LoginForm";
 import "./App.css";
+import Register from "./components/Register";
 function App() {
   return (
     <React.Fragment>
       <Header />
       <main className="container">
         <Switch>
+          <Route path="/register" component={Register} />
           <Route path="/login" component={LoginForm} />
           <Route path="/movies/:id" component={MovieForm} />
           <Route path="/movies" component={Movies} />
           <Route path="/customers" component={customers} />
           <Route path="/rentals" component={Rental} />
+
           <Route path="/not-found" component={Notfound} />
           <Redirect from="/" exact to="/movies" />
           <Redirect to="/not-found" />
